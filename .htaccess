@@ -1,0 +1,4 @@
+ErrorDocument 403 /lolipop_service_documents/simple-403.html
+ErrorDocument 404 /lolipop_service_documents/simple-404.html
+ErrorDocument 500 /lolipop_service_documents/simple-500.html
+DirectoryIndex index.html index.htm
