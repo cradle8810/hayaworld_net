@@ -1,0 +1,26 @@
+---
+name: HTML Lints
+
+on:
+  push:
+    branches:
+      - '**'
+      
+jobs:
+    docker-test:
+        runs-on: self-hosted
+        container:
+          image: node:21
+        steps:
+
+        - name: Checkout
+          uses: actions/checkout@v3
+
+        - name: log node version
+          run: node -v
+
+        - name: pwd
+          run: pwd
+
+        - name: find htmls
+          run: find . -name "www"
