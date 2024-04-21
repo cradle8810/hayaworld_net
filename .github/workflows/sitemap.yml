@@ -1,0 +1,21 @@
+---
+name: Make sitemap.txt
+
+on:
+  push:
+    branches:
+      - '**'
+      
+jobs:
+    docker-test:
+        runs-on: ubuntu-latest
+        steps:
+        - name: Checkout
+          uses: actions/checkout@v3
+
+        - name: find html files and output as sitemap.txt
+          run: | 
+            find . -type f -name "*.html" |
+            sed 's#\.\/#http:\/\/hayaworld\.net/#g' |
+            sed 's#\/www##g'
+            > www/sitemap.txt
