@@ -4,14 +4,14 @@ name: Make sitemap.txt
 on:
   push:
     branches:
-      - '**'
+      - 'master'
 
 jobs:
     Sitemap_txt:
         runs-on: ubuntu-latest
         steps:
         - name: Checkout
-          uses: actions/checkout@v3
+          uses: actions/checkout@v4
 
         - name: find html files and output as sitemap.txt
           run: | 
