@@ -26,5 +26,5 @@ jobs:
         - name: Upload sitemap.txt as artifacts
           uses: actions/upload-artifact@v4
           with:
-            name: www/sitemap.txt
-            path: sitemap.txt
+            name: sitemap.txt
+            path: www/sitemap.txt
