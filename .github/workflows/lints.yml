@@ -16,8 +16,5 @@ jobs:
         - name: Checkout
           uses: actions/checkout@v3
 
-        - name: HTMLlint Initialize
-          run: htmllint init
-
         - name: Execute HTMLlint
           run: htmllint
