@@ -1,12 +1,24 @@
 ---
-name: Make sitemap.txt
+name: HTML Lints
 
 on:
   push:
     branches:
-      - 'master'
-
+      - '**'
+      
 jobs:
+    HTML_Lint:
+        runs-on: ubuntu-latest
+        container:
+          image: ghcr.io/cradle8810/htmllint:latest
+        steps:
+
+        - name: Checkout
+          uses: actions/checkout@v3
+
+        - name: Execute HTMLlint
+          run: htmllint
+
     Sitemap_txt:
         runs-on: ubuntu-latest
         steps:
@@ -28,3 +40,13 @@ jobs:
           with:
             name: sitemap.txt
             path: www/sitemap.txt
+
+    Deployment:
+        needs:
+            - HTML_Lint
+            - Sitemap_txt
+        if: (github.ref == 'refs/heads/master' || github.ref == 'refs/heads/auto_deploy')
+        runs-on: ubuntu-latest
+        steps:
+        - name: Checkout
+          uses: actions/checkout@v4
