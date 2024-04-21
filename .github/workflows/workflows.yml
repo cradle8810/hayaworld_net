@@ -41,12 +41,21 @@ jobs:
             name: sitemap.txt
             path: www/sitemap.txt
 
-    Deployment:
+    Deployment_STG:
         needs:
             - HTML_Lint
             - Sitemap_txt
-        if: (github.ref == 'refs/heads/master' || github.ref == 'refs/heads/auto_deploy')
+
         runs-on: ubuntu-latest
         steps:
         - name: Checkout
           uses: actions/checkout@v4
+
+        - name: Upload to STG
+          uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+          with:
+            server: ${{ secrets.FTP_SRV }}
+            username: ${{ secrets.FTP_USERNAME }}
+            password: ${{ secrets.FTP_PASSWORD }}
+            server-dir: ${{ secrets.FTP_STG_DIR }}/
+            local-dir: www/
