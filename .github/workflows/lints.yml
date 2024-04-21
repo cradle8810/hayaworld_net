@@ -7,7 +7,7 @@ on:
       - '**'
       
 jobs:
-    docker-test:
+    HTML_Lint:
         runs-on: ubuntu-latest
         container:
           image: ghcr.io/cradle8810/htmllint:latest
