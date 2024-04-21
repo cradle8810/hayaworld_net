@@ -7,17 +7,17 @@ on:
       - 'master'
 
 jobs:
-    docker-test:
+    Sitemap_txt:
         runs-on: ubuntu-latest
         steps:
         - name: Checkout
-          uses: actions/checkout@v3
+          uses: actions/checkout@v4
 
         - name: find html files and output as sitemap.txt
           run: | 
-            find . -type f -name "*.html" |
-            sed 's#\.\/#http:\/\/hayaworld\.net/#g' |
-            sed 's#\/www##g'
+            find . -type f -name "*.html" | \
+            sed 's#\.\/#http:\/\/hayaworld\.net/#g' | \
+            sed 's#\/www##g' \
             > www/sitemap.txt
 
         - name: Upload sitemap.txt as artifacts
