@@ -1,0 +1,61 @@
+---
+name: Lints and STG upload
+
+on:
+  push:
+    branches:
+      - '**'
+      
+jobs:
+    HTML_Lint:
+        runs-on: ubuntu-latest
+        container:
+          image: ghcr.io/cradle8810/htmllint:latest
+        steps:
+
+        - name: Checkout
+          uses: actions/checkout@v3
+
+        - name: Execute HTMLlint
+          run: htmllint
+
+    Sitemap_txt:
+        runs-on: ubuntu-latest
+        steps:
+        - name: Checkout
+          uses: actions/checkout@v4
+
+        - name: find html files and output as sitemap.txt
+          run: | 
+            find . -type f -name "*.html" | \
+            sed 's#\.\/#http:\/\/hayaworld\.net/#g' | \
+            sed 's#\/www##g' \
+            > www/sitemap.txt
+
+        - name: View sitemap.txt
+          run: cat "www/sitemap.txt"
+
+        - name: Upload sitemap.txt as artifacts
+          uses: actions/upload-artifact@v4
+          with:
+            name: sitemap.txt
+            path: www/sitemap.txt
+
+    Deployment_STG:
+        needs:
+            - HTML_Lint
+            - Sitemap_txt
+
+        runs-on: ubuntu-latest
+        steps:
+        - name: Checkout
+          uses: actions/checkout@v4
+
+        - name: Upload to STG
+          uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+          with:
+            server: ${{ secrets.FTP_SRV }}
+            username: ${{ secrets.FTP_USERNAME }}
+            password: ${{ secrets.FTP_PASSWORD }}
+            server-dir: ${{ secrets.FTP_STG_DIR }}/
+            local-dir: www/

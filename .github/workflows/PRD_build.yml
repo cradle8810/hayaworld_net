@@ -1,0 +1,21 @@
+---
+name: PRD Push
+
+on:
+    workflow_dispatch:
+
+jobs:
+    Deployment_PRD:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v4
+
+            - name: Upload to PRD
+              uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+              with:
+                server: ${{ secrets.FTP_SRV }}
+                username: ${{ secrets.FTP_USERNAME }}
+                password: ${{ secrets.FTP_PASSWORD }}
+                server-dir: ${{ secrets.FTP_PRD_DIR }}/
+                local-dir: www/
