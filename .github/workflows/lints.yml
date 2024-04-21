@@ -8,19 +8,16 @@ on:
       
 jobs:
     docker-test:
-        runs-on: self-hosted
+        runs-on: ubuntu-latest
         container:
-          image: node:21
+          image: ghcr.io/cradle8810/htmllint:latest
         steps:
 
         - name: Checkout
           uses: actions/checkout@v3
 
-        - name: log node version
-          run: node -v
+        - name: HTMLlint Initialize
+          run: htmllint init
 
-        - name: pwd
-          run: pwd
-
-        - name: find htmls
-          run: find . -name "www"
+        - name: Execute HTMLlint
+          run: htmllint
