@@ -20,6 +20,9 @@ jobs:
             sed 's#\/www##g' \
             > www/sitemap.txt
 
+        - name: View sitemap.txt
+          run: cat "www/sitemap.txt"
+
         - name: Upload sitemap.txt as artifacts
           uses: actions/upload-artifact@v4
           with:
