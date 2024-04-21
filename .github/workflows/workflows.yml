@@ -1,5 +1,5 @@
 ---
-name: HTML Lints
+name: Lints and STG upload
 
 on:
   push:
@@ -52,7 +52,7 @@ jobs:
           uses: actions/checkout@v4
 
         - name: Upload to STG
-          uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+          uses: SamKirkland/FTP-Deploy-Action@v4.3.5
           with:
             server: ${{ secrets.FTP_SRV }}
             username: ${{ secrets.FTP_USERNAME }}
